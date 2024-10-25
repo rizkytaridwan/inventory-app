@@ -36,3 +36,110 @@
     transform: rotate(360deg);
   }
 }
+/* Custom CSS untuk pengaturan tabel */
+.custom-table {
+  table-layout: fixed;
+  margin: 0 auto;
+  width: 35%;
+}
+
+.custom-table th, .custom-table td {
+  padding: 5px; /* Mengurangi padding untuk ukuran yang lebih kecil */
+  border: 1px solid black;
+  font-size: 12px; /* Ukuran font diperkecil */
+}
+
+/* Lebar kolom dalam pixel */
+.custom-table th:nth-child(1), .custom-table td:nth-child(1) {
+  width: 4%; /* Kolom No dengan lebar tetap 50px */
+  text-align: center; /* Memusatkan teks secara horizontal */
+  vertical-align: middle; /* Memusatkan teks secara vertikal */
+}
+
+.custom-table th:nth-child(2), .custom-table td:nth-child(2) {
+  width: 23%; /* Mengubah lebar kolom Nama Barang menjadi 15px */
+}
+
+
+.custom-table th:nth-child(3), .custom-table td:nth-child(3) {
+  width: 7%; /* Kolom Qty dengan lebar tetap 80px */
+  text-align: center; /* Memusatkan teks secara horizontal */
+  vertical-align: middle; /* Memusatkan teks secara vertikal */
+}
+
+.custom-table td {
+  height: 9px !important; /* Tinggi setiap baris adalah 15px */
+  line-height: 9px;
+}
+
+.order-title {
+  text-align: center;
+  font-size: 14px; /* Ukuran teks judul */
+  margin-bottom: 4px; /* Jarak antara judul dan tabel lebih kecil */
+  font-weight: bold;
+  display: block;
+  /* width: 67%; */
+  /* margin-left: 300px; */
+}
+
+.red-input {
+  border: 2px solid red;
+  color: red;
+}
+.right
+{
+  margin-right: 10px;
+}
+
+@media print {
+  body {
+    width: 21cm; /* Lebar halaman A4 */
+    height: 29.7cm; /* Tinggi halaman A4 */
+    margin: 1.9cm 1.8cm; /* Margin untuk mencetak, sesuai dengan yang Anda minta */
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Menghilangkan header, footer, dan title dari cetakan */
+  @page {
+    size: A4;
+    margin: 2%; /* Menghilangkan margin default untuk header dan footer */
+  }
+
+  h1.order-title {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 5px;
+    /* width: 67%; */
+    /* margin-left: 30%; */
+  }
+  
+
+  header, footer, .form-section, .print-button {
+    display: none; /* Menyembunyikan elemen judul dan form saat cetak */
+  }
+
+  table {
+    width: 100%; /* Membuat tabel menyesuaikan lebar halaman */
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+
+  td{
+    border: 1px solid black;
+    padding: 5px;
+    height: 15px !important; /* Menyusun ulang tinggi baris ke 15px untuk cetakan */
+    line-height: 15px;
+  }
+  td{
+    border: 1% solid black;
+    padding: 5%;
+    height: 10% !important; /* Menyusun ulang tinggi baris ke 15px untuk cetakan */
+    line-height: 15%;
+  }
+  .red-print {
+    color: red !important;
+    display: none;
+  }
+
+}
