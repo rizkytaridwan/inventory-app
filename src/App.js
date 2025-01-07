@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './App.css';  // Pastikan CSS sudah diimpor
+import './App.css';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -7,7 +7,7 @@ function App() {
   const [bulkQty, setBulkQty] = useState("");
   const [orderTitle, setOrderTitle] = useState("");
   const [redOrderTitle, setRedOrderTitle] = useState("");
-  const [emptyRowsInput, setEmptyRowsInput] = useState(""); // State untuk mengatur jumlah baris kosong
+  const [emptyRowsInput, setEmptyRowsInput] = useState("");
 
   const addBulkItems = () => {
     if (bulkNames === "") {
@@ -15,21 +15,22 @@ function App() {
       return;
     }
 
-    const names = bulkNames.split("\n"); // Ambil semua baris termasuk baris kosong
+    const names = bulkNames.split("\n");
     const qtys = bulkQty.split("\n");
 
-    // Buat item bahkan jika ada baris kosong
-    const newItems = names.map((name, index) => {
-      const qty = qtys[index] ? qtys[index].trim() : ""; // Ambil qty atau biarkan kosong jika tidak ada
-      return {
-        name: name.trim() === "" ? "" : name.trim().toUpperCase(), // Biarkan nama kosong jika tidak ada input
-        qty: qty === "" ? "" : qty, // Biarkan qty kosong jika tidak ada input
-      };
-    });
+    const newItems = names.map((name, index) => ({
+      name: name.trim() === "" ? "" : name.trim().toUpperCase(),
+      qty: qtys[index] ? qtys[index].trim() : "",
+    }));
 
     setItems([...items, ...newItems]);
     setBulkNames("");
     setBulkQty("");
+  };
+
+  const sortItems = () => {
+    const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
+    setItems(sortedItems);
   };
 
   const resetForm = () => {
@@ -38,7 +39,7 @@ function App() {
     setBulkNames("");
     setBulkQty("");
     setItems([]);
-    setEmptyRowsInput(""); // Reset jumlah baris kosong ke 2
+    setEmptyRowsInput("");
   };
 
   const printItems = () => {
@@ -61,10 +62,9 @@ function App() {
           value={redOrderTitle}
           onChange={(e) => setRedOrderTitle(e.target.value)}
           className="red-input"
-          style={{ width: "30%", marginBottom: "10px", marginRight: "10%" }}
+          style={{ width: "30%", marginBottom: "10px", marginRight: "10%"}}
           placeholder="Nama Toko Merah"
         />
-        {/* Input untuk jumlah baris kosong */}
         <input
           type="number"
           value={emptyRowsInput}
@@ -87,12 +87,12 @@ function App() {
           rows="8"
           style={{ width: "100%", marginBottom: "10px" }}
         />
-        <button onClick={addBulkItems} className="add-button btn btn-success">Tambah Barang Sekaligus</button>&nbsp;
-        <button onClick={printItems} className="add-button btn btn-warning">Print</button>&nbsp;
-        <button onClick={resetForm} className="add-button btn btn-danger">Reset</button>
+        <button onClick={addBulkItems} className="btn btn-success">Tambah Barang Sekaligus</button>&nbsp;
+        <button onClick={printItems} className="btn btn-warning">Print</button>&nbsp;
+        <button onClick={resetForm} className="btn btn-danger">Reset</button>&nbsp;
+        <button onClick={sortItems} className="btn btn-info">Sortir Nama Barang A-Z</button>
       </div>
 
-      {/* Menampilkan judul orderan yang diinputkan */}
       {orderTitle && <h1 className="order-title" style={{ color: 'black' }}>NAMA TOKO : {orderTitle.toUpperCase()}</h1>}
       {redOrderTitle && <h1 className="order-title red-print" style={{ color: 'red' }}>NAMA TOKO : {redOrderTitle.toUpperCase()}</h1>}
 
@@ -113,7 +113,6 @@ function App() {
                 <td>{item.qty}</td>
               </tr>
             ))}
-            {/* Render baris kosong sesuai input pengguna */}
             {Array.from({ length: emptyRowsInput }).map((_, index) => (
               <tr key={`empty-${index}`} style={{ height: "15px" }}>
                 <td>{items.length + index + 1}</td>
